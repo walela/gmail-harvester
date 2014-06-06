@@ -2,15 +2,15 @@
 import email,getpass,imaplib,os
 
 #folder where the attachments will be downloaded to.Defaults to the current folder.
-detach_dir = "."
+detach_dir = "/home/austin/Desktop/myfiles/"
 
 #get the user account details
-hostname = "imap.gmail.com"
+
 username = raw_input("Please enter your gmail username : ")
 password = getpass.getpass("Please enter your gmail password: ")
 
 #connect to the gmail imap server
-m = imaplib.IMAP4_SSL(hostname)
+m = imaplib.IMAP4_SSL("imap.gmail.com")
 m.login(username,password)
 
 #Select a mailbox to act on e.g "INBOX".Returned data is the count of messages in mailbox.This selects all mail(duh).
@@ -24,8 +24,8 @@ resp,items = m.search(None,'FROM','"Chess.com"')
 #*********split function
 items = items[0].split()
 for emailid in items:
-	#The RFC822 means get everything in the mail.Headers/Content/Attachments etc
-	resp,data = m.fetch(emailid,"(RFC822)")
+	#The RFC822 means get everything in the mail.Headers/Content/Attachments resp
+	etc,data = m.fetch(emailid,"(RFC822)")
 	email_body = data[0][1]
 	mail = email.message_from_string(email_body)
 
