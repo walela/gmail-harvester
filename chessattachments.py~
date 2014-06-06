@@ -2,7 +2,7 @@
 import email,getpass,imaplib,os
 
 #folder where the attachments will be downloaded to.Defaults to the current folder.
-detach_dir = "."
+detach_dir = "/home/austin/Desktop/myfiles/"
 
 #get the user account details
 
@@ -31,12 +31,8 @@ for emailid in items:
 
 	if mail.get_content_maintype() != 'multipart':
 		continue
-	#the print statement is commented out because
-	#causes a bug when the mail has no subject.I also accidentally
-	#realized a huge increase in perfomance(>50x) when the program
-	#only downloaded the attachments without printing the email headers
-	
-	#print "["+mail["From"]+"]:" + mail["Subject"]
+
+	print "["+mail["From"]+"]:" + mail["Subject"]
 
 	for part in mail.walk():
 		if part.get_content_maintype() == 'multipart':
